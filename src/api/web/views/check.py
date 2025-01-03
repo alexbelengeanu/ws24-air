@@ -28,7 +28,7 @@ def health_check() -> JSONResponse:
     status_code=status.HTTP_200_OK,
     description="Returns the current status of the dependencies that were injected (database manager, image collection and the dataset).",
 )
-def db_client(
+def dependencies(
         db_manager: DatabaseManager = Depends(get_manager),
         img_collection: ImageCollection = Depends(get_collection)
 ) -> JSONResponse:
