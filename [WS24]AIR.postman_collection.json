@@ -1,0 +1,76 @@
+{
+	"info": {
+		"_postman_id": "3fa6ac16-7cb8-494e-86e6-9b301bb2dd0e",
+		"name": "[WS24]AIR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23607426"
+	},
+	"item": [
+		{
+			"name": "Dependencies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/v1/dependencies"
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5000/api/v1/health"
+			},
+			"response": []
+		},
+		{
+			"name": "Dummy Insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost:5000/api/v1/insert/dummy"
+			},
+			"response": []
+		},
+		{
+			"name": "Insert",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost:5000/api/v1/insert/"
+			},
+			"response": []
+		},
+		{
+			"name": "Dummy Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "http://localhost:5000/api/v1/search/dummy"
+			},
+			"response": []
+		},
+		{
+			"name": "Search",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:5000/api/v1/search/"
+			},
+			"response": []
+		}
+	]
+}
