@@ -14,13 +14,3 @@ def get_manager() -> DatabaseManager:
     """
 
     return db_manager
-
-
-def get_collection() -> Union[ImageCollection, None]:
-    """
-    Get the object_detection.
-    """
-    if img_collection is None:
-        raise ValueError("Image collection is not initialized.")
-    else:
-        return img_collection
