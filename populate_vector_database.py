@@ -4,6 +4,7 @@ from tqdm import tqdm
 from src.storage.client import DatabaseManager
 from src.storage.collection import ImageCollection
 from src.storage.dataset import Dataset
+from src.embeddings.pretrained import FaceEmbeddings
 
 np.random.seed(7)
 
@@ -11,8 +12,11 @@ np.random.seed(7)
 db_manager = DatabaseManager()
 db_manager.create_client(remove_if_exists=True)
 
+# Initialize the face embeddings object
+embedding = FaceEmbeddings()
+
 # Set up embedding dimension and similarity metric to use
-img_dim = 2
+img_dim = 512
 img_similarity_metric = "COSINE"
 img_collection = ImageCollection(db_manager.get_client(), dimension=img_dim, metric_type=img_similarity_metric)
 
@@ -29,19 +33,18 @@ img_identity_collection = dataset.images_by_identity()
 
 # Iterate the identity collection for each celebrity ID
 for celebrity_id in tqdm(list(img_identity_collection.keys())):
-
+    
     # Extend the data list with the celebrity ID, image path and a random vector (for now)
     dummy_data.extend(
         [
             {
                 'celeb_id': celebrity_id,
                 'img_path': img_path,
-                'vector': np.random.normal(size=2, loc=[100, 100], scale=10) #TODO: replace with actual vector embedding
+                'vector': embedding.get_embedding(img_path) #TODO: replace with actual vector embedding
              }
             for img_path in img_identity_collection[celebrity_id]
         ]
     )
-
     # Break after the first celebrity ID just to make sure it works as expected
     break
 
