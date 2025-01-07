@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
     # Database settings
     db_name: str = 'local.db'
-    remove_if_exists: bool = True
+    remove_if_exists: bool = False # Set to True to remove the database if it exists
     embedding_dim: int = 2
     similarity_metric: str = "COSINE"
     celeb_img_folder_path: str = "./data/img_align_celeba"
