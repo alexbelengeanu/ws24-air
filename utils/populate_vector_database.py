@@ -13,7 +13,7 @@ db_manager = DatabaseManager()
 db_manager.create_client(remove_if_exists=True)
 
 # Initialize the face embeddings object
-embedding = FaceEmbeddings()
+em = FaceEmbeddings()
 
 # Set up embedding dimension and similarity metric to use
 img_dim = 512
@@ -26,29 +26,25 @@ dataset = Dataset(
     img_identity_map_path="./data/identity_CelebA.txt"
 )
 
-dummy_data = []
-
-print('..Started populating vector database...')
 img_identity_collection = dataset.images_by_identity()
+print('..Started populating vector database...')
 
 # Iterate the identity collection for each celebrity ID
 for celebrity_id in tqdm(list(img_identity_collection.keys())):
-    
-    # Extend the data list with the celebrity ID, image path and a random vector (for now)
-    dummy_data.extend(
-        [
-            {
-                'celeb_id': celebrity_id,
-                'img_path': img_path,
-                'vector': embedding.get_embedding(img_path) #TODO: replace with actual vector embedding
-             }
-            for img_path in img_identity_collection[celebrity_id]
-        ]
-    )
-    # Break after the first celebrity ID just to make sure it works as expected
-    break
+    celebrity_data = []
 
-# Insert the dummy data into the vector database
-query_result = img_collection.insert(dummy_data)
+    # Iterate the image paths for each celebrity ID
+    for img_path in img_identity_collection[celebrity_id]:
+       embedding = em.get_embedding(img_path)
 
-print(f'..Successfully inserted {query_result["insert_count"]} records into the vector database...')
+       # If the embedding is a numpy array, append the data to the celebrity data list
+       if isinstance(embedding, np.ndarray):
+           celebrity_data.append({
+               'celeb_id': celebrity_id,
+               'img_path': img_path,
+               'vector': embedding
+           })
+
+    query_result = img_collection.insert(celebrity_data)
+
+print('..Finished populating vector database...')
