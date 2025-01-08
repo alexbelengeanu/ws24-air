@@ -19,6 +19,7 @@ if option == "Insert Celebrity":
 if option == "Search Celebrity":
     st.header("Search Celebrity")
     max_results = st.number_input("Max Results", min_value=1, step=1, value=1)
+    img_path = st.text_input("Image Path", value="./data/img_align_celeba/024291.jpg")
     
     if st.button("Search"):
         try:
