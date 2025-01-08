@@ -20,25 +20,30 @@ def insert_celebrity_picture(img_path):
               # unique celebrity ID
               "celeb_id": str(uuid.uuid4()),
               "img_path": img_path,
-              "embedding": em.get_embedding(path=img_path)
+              "embedding": em.get_embedding(path=img_path).tolist()
             })
   headers = {
     'Content-Type': 'application/json'
   }
-  response = requests.post(url, headers=headers, data=payload)
+  response = requests.request("POST", url, headers=headers, data=payload)
   return response
 
 
 url = "http://localhost:5000/api/v1/search"
 
 def search_similar_celebrity(src_img_path, max_results):
+  embedding = em.get_embedding(path=src_img_path)
+  # with open("/home/teuo/Documents/uni_files/Wintersemester_TUG/WS2023/AS/algosandgames/out.txt", "w") as file:
+  #   file.write(embedding)
+
+
   payload = json.dumps({
-            "embedding": em.get_embedding(path=src_img_path),
+            "embedding": embedding.tolist(),
             "max_results": max_results
           })
   headers = {
     'Content-Type': 'application/json'
   }
 
-  response = requests.post(url, headers=headers, data=payload)
+  response = requests.request("POST", url, headers=headers, data=payload)
   return response

@@ -1,6 +1,8 @@
 import streamlit as st
+from PIL import Image
 from src.frontend.utils import insert_celebrity_picture
 from src.frontend.utils import search_similar_celebrity
+import traceback
 
 option = st.sidebar.selectbox("Choose Action", ["Insert Celebrity", "Search Celebrity"])
 
@@ -23,7 +25,15 @@ if option == "Search Celebrity":
     
     if st.button("Search"):
         try:
-            response = search_similar_celebrity(img_path, max_results)
-            st.json(response.json())
+            you = Image.open(img_path)
+            st.image(you, caption="Uploaded Image", use_container_width=True)
+            response = search_similar_celebrity(img_path, max_results).text
+            # st.write(type(emb))
+            # st.write(emb.shape)
+            # with open('/home/teuo/Documents/uni_files/Wintersemester_TUG/WS2023/AS/algosandgames/out.txt', 'w') as file:
+            #     file.write(response)
+
+            # twin = Image.open(response)
+            # st.image(twin, caption="Your Twin", use_container_width=True)
         except Exception as e:
             st.error(f"Error: {e}")
