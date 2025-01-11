@@ -9,8 +9,8 @@ if "is_first_run" not in st.session_state:
     st.session_state.is_first_run = True  # Set to True only the first time
 
 if st.session_state.is_first_run:
-    st.markdown("## Welcome to FindMyTwin!")
-    st.markdown("Have you ever wondered who your celebrity twin is?")
+    st.markdown("## Welcome to Celebrity Clone!")
+    st.markdown("Have you ever wondered who your celebrity clone is?")
     st.markdown("Well, you're in luck! Our machine learning model will decide that for you!")
     logo = Image.open("./src/frontend/logo/logo.png")
     img_base64 = image_to_base64(logo)
@@ -24,8 +24,8 @@ st.sidebar.markdown("<h3>Choose Action</h3>", unsafe_allow_html=True)
 
 if st.sidebar.button("Insert Celebrity"):
     st.session_state.selected_action = "Insert Celebrity"
-if st.sidebar.button("Find My Twin"):
-    st.session_state.selected_action = "Find My Twin"
+if st.sidebar.button("Find My Clone"):
+    st.session_state.selected_action = "Find My Clone"
 
 
 
@@ -44,23 +44,23 @@ if st.session_state.selected_action == "Insert Celebrity":
         except Exception as e:
             st.error(f"Error: {e}")
 
-if st.session_state.selected_action == "Find My Twin":
-    st.header("Find My Twin")
+if st.session_state.selected_action == "Find My Clone":
+    st.header("Find My Clone")
     max_results = st.number_input("Max Results", min_value=1, step=1, value=1)
     img_path = st.text_input("Image Path", value="./data/img_align_celeba/024291.jpg")
     
     if st.button("Search"):
         try:
             you = Image.open(img_path)
-            st.markdown("<h3 style='text-align: center;'>Searching for your twin... Please wait.</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='text-align: center;'>Searching for your clone... Please wait.</h3>", unsafe_allow_html=True)
             col1, col2 = st.columns(2)
             with col1:
                 st.image(you, caption="Uploaded Image", use_container_width=True)
 
             response = search_similar_celebrity(img_path, max_results)
             time.sleep(3)
-            twin = Image.open(response)
+            clone = Image.open(response)
             with col2:
-                st.image(twin, caption="Your Twin", use_container_width=True)
+                st.image(clone, caption="Your Clone", use_container_width=True)
         except Exception as e:
             st.error(f"Error: {e}")
