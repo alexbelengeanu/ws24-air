@@ -12,3 +12,6 @@
 * `pymilvus` does not support Windows, so you might want to use WSL if you don't have MacOS/Ubuntu - [check here](https://stackoverflow.com/a/79286565)
 * To launch the API install the requirements and then write `python3 -m src.api` in the terminal
 * You can use Swagger to get details about the endpoints by accessing http://localhost:5000/api/v1/docs after the API was launched
+
+# Frontend
+* To lauch the frontend, please run the command `streamlit run frontend.py` in the root directory.
